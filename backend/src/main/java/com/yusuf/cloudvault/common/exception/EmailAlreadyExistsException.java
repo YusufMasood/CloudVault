@@ -1,4 +1,8 @@
 package com.yusuf.cloudvault.common.exception;
 
-public class EmailAlreadyExistsException {
+public class EmailAlreadyExistsException extends RuntimeException{
+
+    public EmailAlreadyExistsException(String message) {
+        super(message);
+    }
 }

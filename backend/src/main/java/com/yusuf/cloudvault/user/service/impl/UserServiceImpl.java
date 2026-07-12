@@ -1,5 +1,6 @@
 package com.yusuf.cloudvault.user.service.impl;
 
+import com.yusuf.cloudvault.common.exception.EmailAlreadyExistsException;
 import com.yusuf.cloudvault.user.dto.request.RegisterRequest;
 import com.yusuf.cloudvault.user.dto.response.RegisterResponse;
 import com.yusuf.cloudvault.user.entity.Role;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     public RegisterResponse register(RegisterRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already exists");
         }
 
         User user = User.builder()
