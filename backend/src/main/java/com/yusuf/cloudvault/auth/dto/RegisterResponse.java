@@ -1,4 +1,4 @@
-package com.yusuf.cloudvault.user.dto.response;
+package com.yusuf.cloudvault.auth.dto;
 
 import lombok.*;
 

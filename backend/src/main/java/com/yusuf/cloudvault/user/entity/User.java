@@ -2,6 +2,10 @@ package com.yusuf.cloudvault.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.yusuf.cloudvault.file.entity.FileEntity;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.time.LocalDateTime;
 
@@ -58,4 +62,7 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "owner")
+    private List<FileEntity> files = new ArrayList<>();
 }

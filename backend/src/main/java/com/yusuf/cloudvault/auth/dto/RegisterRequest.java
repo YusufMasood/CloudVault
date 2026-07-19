@@ -1,4 +1,4 @@
-package com.yusuf.cloudvault.user.dto.request;
+package com.yusuf.cloudvault.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

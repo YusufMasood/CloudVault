@@ -1,7 +1,7 @@
 package com.yusuf.cloudvault.user.service;
 
-import com.yusuf.cloudvault.user.dto.request.RegisterRequest;
-import com.yusuf.cloudvault.user.dto.response.RegisterResponse;
+import com.yusuf.cloudvault.auth.dto.RegisterRequest;
+import com.yusuf.cloudvault.auth.dto.RegisterResponse;
 
 public interface UserService {
 
