@@ -2,6 +2,7 @@ package com.yusuf.cloudvault.file.service.impl;
 
 
 import com.yusuf.cloudvault.file.dto.FileResponseDto;
+import com.yusuf.cloudvault.file.dto.StorageDashboardDto;
 import com.yusuf.cloudvault.file.repository.FileRepository;
 import com.yusuf.cloudvault.file.service.FileService;
 import com.yusuf.cloudvault.storage.service.StorageService;
@@ -157,4 +158,40 @@ public class FileServiceImpl implements FileService {
                         .build())
                 .toList();
     }
+
+    @Override
+    public StorageDashboardDto getDashboard() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        long totalFiles = fileRepository.countByOwner(user);
+
+        List<FileResponseDto> recentFiles = fileRepository
+                .findTop5ByOwnerOrderByUploadedAtDesc(user)
+                .stream()
+                .map(file -> FileResponseDto.builder()
+                        .id(file.getId())
+                        .fileName(file.getFileName())
+                        .fileType(file.getFileType())
+                        .fileSize(file.getFileSize())
+                        .uploadedAt(file.getUploadedAt())
+                        .build())
+                .toList();
+
+        return StorageDashboardDto.builder()
+                .totalFiles(totalFiles)
+                .storageUsed(user.getStorageUsed())
+                .storageLimit(user.getStorageLimit())
+                .remainingStorage(user.getStorageLimit() - user.getStorageUsed())
+                .recentFiles(recentFiles)
+                .build();
+
+    }
+
 }

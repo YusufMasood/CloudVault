@@ -1,5 +1,6 @@
 package com.yusuf.cloudvault.file.service;
 
+import com.yusuf.cloudvault.file.dto.StorageDashboardDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import com.yusuf.cloudvault.file.dto.FileResponseDto;
@@ -16,4 +17,6 @@ public interface FileService {
     List<FileResponseDto> getMyFiles();
 
     List<FileResponseDto> searchFiles(String keyword);
+
+    StorageDashboardDto getDashboard();
 }

@@ -15,4 +15,8 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
 
     List<FileEntity> findByOwnerAndFileNameContainingIgnoreCase(User owner, String keyword);
 
+    long countByOwner(User owner);
+
+    List<FileEntity> findTop5ByOwnerOrderByUploadedAtDesc(User owner);
+
 }

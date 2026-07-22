@@ -1,6 +1,7 @@
 package com.yusuf.cloudvault.file.controller;
 
 import com.yusuf.cloudvault.file.dto.FileResponseDto;
+import com.yusuf.cloudvault.file.dto.StorageDashboardDto;
 import com.yusuf.cloudvault.file.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,13 @@ public class FileController {
             @RequestParam String keyword) {
 
         return ResponseEntity.ok(fileService.searchFiles(keyword));
+    }
+
+    @GetMapping("/dashboard")
+    public ResponseEntity<StorageDashboardDto> getDashboard() {
+
+        return ResponseEntity.ok(fileService.getDashboard());
+
     }
 
 }
