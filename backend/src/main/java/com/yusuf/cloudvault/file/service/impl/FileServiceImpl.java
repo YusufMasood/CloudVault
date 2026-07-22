@@ -48,7 +48,11 @@ public class FileServiceImpl implements FileService {
                 .fileType(file.getContentType())
                 .fileSize(file.getSize())
                 .s3Key(storedFileName)
-                .fileUrl(null)
+                .fileUrl(
+                        "https://" +
+                                "cloudvault-yusuf-masood-2026.s3.ap-south-1.amazonaws.com/" +
+                                storedFileName
+                )
                 .owner(user)
                 .build();
 
@@ -119,6 +123,30 @@ public class FileServiceImpl implements FileService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return fileRepository.findAllByOwner(user)
+                .stream()
+                .map(file -> FileResponseDto.builder()
+                        .id(file.getId())
+                        .fileName(file.getFileName())
+                        .fileType(file.getFileType())
+                        .fileSize(file.getFileSize())
+                        .uploadedAt(file.getUploadedAt())
+                        .build())
+                .toList();
+    }
+
+    @Override
+    public List<FileResponseDto> searchFiles(String keyword) {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return fileRepository
+                .findByOwnerAndFileNameContainingIgnoreCase(user, keyword)
                 .stream()
                 .map(file -> FileResponseDto.builder()
                         .id(file.getId())

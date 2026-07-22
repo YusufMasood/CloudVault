@@ -13,4 +13,6 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
 
     List<FileEntity> findAllByOwner(User owner);
 
+    List<FileEntity> findByOwnerAndFileNameContainingIgnoreCase(User owner, String keyword);
+
 }

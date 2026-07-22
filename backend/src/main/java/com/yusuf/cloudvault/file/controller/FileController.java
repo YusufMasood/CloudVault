@@ -27,6 +27,7 @@ public class FileController {
 
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
+
         return fileService.downloadFile(id);
     }
 
@@ -37,7 +38,15 @@ public class FileController {
 
     @GetMapping
     public ResponseEntity<List<FileResponseDto>> getMyFiles() {
+
         return ResponseEntity.ok(fileService.getMyFiles());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<FileResponseDto>> searchFiles(
+            @RequestParam String keyword) {
+
+        return ResponseEntity.ok(fileService.searchFiles(keyword));
     }
 
 }

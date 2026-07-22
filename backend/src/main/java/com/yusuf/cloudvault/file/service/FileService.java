@@ -14,4 +14,6 @@ public interface FileService {
     String deleteFile(Long fileId);
 
     List<FileResponseDto> getMyFiles();
+
+    List<FileResponseDto> searchFiles(String keyword);
 }

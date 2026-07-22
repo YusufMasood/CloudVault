@@ -22,6 +22,8 @@ public class LocalStorageService implements StorageService {
     @Override
     public String uploadFile(MultipartFile file) {
 
+        System.out.println("Uploading to Local...");
+
         try {
 
             Path uploadPath = Paths.get(uploadDir);
